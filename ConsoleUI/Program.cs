@@ -13,7 +13,7 @@ namespace ConsoleUI
 
             productManager.GetAll();
 
-            foreach (var p in productManager.GetAll())
+            foreach (var p in productManager.GetByUnitPrice(50,100))
             {
                 Console.WriteLine(p.ProductName);
             }
