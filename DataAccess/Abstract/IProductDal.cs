@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Core.DataAccsess;
 
 namespace DataAccess.Abstract
 {
@@ -10,3 +11,5 @@ namespace DataAccess.Abstract
        
     }
 }
+
+// code refactoring
