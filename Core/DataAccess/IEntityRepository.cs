@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Text;
-using Core.Emtities;
+using Core.Entities;
 
-namespace Core.DataAccsess
+namespace Core.DataAccess
 {
     // Generic constrain
     // class : referanstip olabilir.
