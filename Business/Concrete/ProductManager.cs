@@ -7,7 +7,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
+using FluentValidation;
 
 namespace Business.Concrete
 {
@@ -30,7 +33,7 @@ namespace Business.Concrete
             }
 
 
-            return new SuccessDataResult<List<Product>>(_productDal.GetAll(),Messages.ProductListed);
+            return new SuccessDataResult<List<Product>>(_productDal.GetAll(), Messages.ProductListed);
         }
 
         public IDataResult<List<Product>> GetAllByCategoryId(int id)
@@ -38,36 +41,22 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Product>>(_productDal.GetAll(p => p.CategoryId == id));
         }
 
-        public IDataResult<List<Product>>GetByUnitPrice(decimal min, decimal max)
+        public IDataResult<List<Product>> GetByUnitPrice(decimal min, decimal max)
         {
             return new SuccessDataResult<List<Product>>(_productDal.GetAll(p => p.UnitPrice >= min && p.UnitPrice <= max));
         }
-        
-        
+
+
         public IResult Add(Product product)
         {
-            //business codes
-            // Validation
-            if (product.UnitPrice <= 0)
-            {
-                return new ErrorResult(Messages.UnitPriceInvalid);
-            }
-
-
-            if (product.ProductName.Length < 2)
-            {
-                // magic string artık değil
-                return new ErrorResult(Messages.ProductNameInvalid);
-            }
-
+            ValidationTool.Validate(new ProductValidator(), product);
             _productDal.Add(product);
-
             return new SuccessResult(Messages.ProductAdded);
         }
 
         public IDataResult<Product> GetById(int productId)
         {
-            return new SuccessDataResult<Product>(_productDal.Get(p => p.ProductId == productId)); 
+            return new SuccessDataResult<Product>(_productDal.Get(p => p.ProductId == productId));
         }
 
         public IDataResult<List<ProductDetailDto>> GetProductDetails()
