@@ -6,13 +6,13 @@ using Entities.Concrete;
 
 namespace DataAccess.Concrete.EntityFramework
 {   
-    public class NorthwindContext : DbContext
+    public class NorthwindContext : DbContext 
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // @ isareti \\ yerine \ kullanılmasını sağlar 
-            //optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=Northwind;Trusted_Connection=true");
-            optionsBuilder.UseSqlServer(@"Server=DESKTOP-6N7UTE9\SQLEXPRESS;Database=Northwind;Trusted_Connection=true");
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=Northwind;Trusted_Connection=true");
+            //optionsBuilder.UseSqlServer(@"Server=DESKTOP-6N7UTE9\SQLEXPRESS;Database=Northwind;Trusted_Connection=true");
 
         }
 

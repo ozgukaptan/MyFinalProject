@@ -47,6 +47,12 @@ namespace Business.Concrete
         public IResult Add(Product product)
         {
             //business codes
+            // Validation
+            if (product.UnitPrice <= 0)
+            {
+                return new ErrorResult(Messages.UnitPriceInvalid);
+            }
+
 
             if (product.ProductName.Length < 2)
             {
