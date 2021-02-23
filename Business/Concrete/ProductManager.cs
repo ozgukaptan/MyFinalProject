@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Text;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using FluentValidation;
@@ -46,10 +47,10 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Product>>(_productDal.GetAll(p => p.UnitPrice >= min && p.UnitPrice <= max));
         }
 
-
+        [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
-            ValidationTool.Validate(new ProductValidator(), product);
+
             _productDal.Add(product);
             return new SuccessResult(Messages.ProductAdded);
         }
