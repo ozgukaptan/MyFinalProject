@@ -14,6 +14,7 @@ namespace Core.Aspects.Autofac.Validation
         private Type _validatorType;
         public ValidationAspect(Type validatorType)
         {
+            // defensive coding
             if (!typeof(IValidator).IsAssignableFrom(validatorType))
             {
                 throw new System.Exception("Bu bir doğrulama sınıfı değil");
@@ -31,5 +32,9 @@ namespace Core.Aspects.Autofac.Validation
                 ValidationTool.Validate(validator, entity);
             }
         }
+
+       
+
+
     }
 }
