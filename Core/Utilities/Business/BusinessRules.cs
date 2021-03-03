@@ -13,6 +13,7 @@ namespace Core.Utilities.Business
             {
                 if (!logic.Success)
                 {
+
                     return logic;
                 }
             }
