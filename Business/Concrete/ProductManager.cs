@@ -16,6 +16,7 @@ using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.Results;
 using FluentValidation;
+using Business.BusinessAspects.Autofac;
 
 namespace Business.Concrete
 {
@@ -56,7 +57,7 @@ namespace Business.Concrete
 
         //Claim yetki demek.
 
-        //[SecuredOperation("product.add")]
+        [SecuredOperation("product.add")]
         [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {

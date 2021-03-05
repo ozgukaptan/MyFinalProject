@@ -19,5 +19,7 @@ namespace Business.Constants
         public static string PrpductNameAlreadyExist = "aynı isimli ürü olmaz.";
 
         public static string CategoryLimitExceded = "Category limit";
+
+        public static string AuthorizationDenied = "Yetkiniz yok.";
     }
 }
