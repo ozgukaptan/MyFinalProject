@@ -112,7 +112,7 @@ namespace Business.Concrete
             // önce tüm data çekilmez 
             // select count (*) from products where categoryId=1
             var result = _productDal.GetAll(p => p.CategoryId == categoryId).Count;
-            if (result >= 10)
+            if (result >= 1000)
             {
                 return new ErrorResult(Messages.PrpductCountOfCategoryError);
             }
