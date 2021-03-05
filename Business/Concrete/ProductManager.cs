@@ -17,6 +17,7 @@ using Core.Utilities.Business;
 using Core.Utilities.Results;
 using FluentValidation;
 using Business.BusinessAspects.Autofac;
+using Core.Aspects.Autofac.Caching;
 
 namespace Business.Concrete
 {
@@ -33,6 +34,7 @@ namespace Business.Concrete
             _categoryService = categoryService;
         }
 
+        [CacheAspect] // Key , Value
         public IDataResult<List<Product>> GetAll()
         {
             //iş kodları
@@ -59,6 +61,7 @@ namespace Business.Concrete
 
         [SecuredOperation("product.add")]
         [ValidationAspect(typeof(ProductValidator))]
+        [CacheRemoveAspect("IProductService.Get")]
         public IResult Add(Product product)
         {
 
@@ -76,6 +79,8 @@ namespace Business.Concrete
             return new SuccessResult(Messages.ProductAdded);
 
         }
+        [CacheAspect]
+        [PerformanceAspect(5)]
         public IDataResult<Product> GetById(int productId)
         {
             return new SuccessDataResult<Product>(_productDal.Get(p => p.ProductId == productId));
@@ -91,6 +96,7 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(ProductValidator))]
+        [CacheRemoveAspect("IProductService.Get")]
         public IResult Update(Product product)
         {
             // Bir kategoride en fazla 10 ürün olabilir.
@@ -144,6 +150,21 @@ namespace Business.Concrete
             }
 
             return new SuccessResult();
+        }
+
+        [TransactionScopeAspect]
+        public IResult AddTransactionalTest(Product product)
+        {
+
+            Add(product);
+            if(product.UnitPrice<10)
+            {
+                throw new Exception("");
+            }
+
+            Add(product);
+
+            return null;
         }
     }
 }
