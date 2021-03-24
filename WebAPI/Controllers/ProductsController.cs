@@ -30,7 +30,6 @@ namespace WebAPI.Controllers
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            Thread.Sleep(100);
             //swagger // dokumantasyon için
             // Dependency chain -- 
             //IProductService productService = new ProductManager(new EfProductDal());
